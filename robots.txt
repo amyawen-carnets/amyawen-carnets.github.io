@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amyawen-carnets.github.io/sitemap.xml
