@@ -1,0 +1,604 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Âme Management</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lato:wght@400;700&display=swap">
+
+<style>
+/* Nuit d’améthyste : un ciel qui dérive, une colonne de texte étroite,
+   et dix sigils qui s’allument quand on les approche. */
+:root{
+  --nuit:#130E1D;          /* le fond, violet de nuit */
+  --nuit-2:#1D1630;        /* les surfaces posées dessus */
+  --voile:#322645;         /* les filets */
+  --violet:#8A63C4;        /* l’améthyste : le côté mystique */
+  --violet-sourd:#4B3570;  /* le violet des fonds et des halos */
+  --ardoise:#484E56;       /* l’ardoise du logo */
+  --creme:#F6EADA;         /* le texte */
+  --creme-doux:#C9BBAE;    /* le texte secondaire */
+  --or:#C9A24A;            /* l’accent : or vieilli */
+  --terre:#C2665A;         /* le second accent, celui des carnets */
+  --f-titre:"Marcellus",Georgia,"Times New Roman",serif;
+  --f-texte:"Spectral",Georgia,serif;
+  --f-label:"Lato","Helvetica Neue",Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:
+    radial-gradient(1100px 620px at 78% -8%, rgba(138,99,196,.20), transparent 68%),
+    radial-gradient(900px 520px at 6% 34%, rgba(75,53,112,.22), transparent 70%),
+    var(--nuit);
+  background-attachment:fixed;
+  color:var(--creme);
+  font-family:var(--f-texte); font-weight:300; font-size:17px; line-height:1.72;
+  margin:0; -webkit-font-smoothing:antialiased;
+}
+.gutter{
+  width:100%; max-width:1080px; margin-inline:auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+section{padding-block:clamp(68px,10vw,124px)}
+h1,h2,h3{font-family:var(--f-titre); font-weight:400; text-wrap:balance; margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--or); outline-offset:3px; border-radius:2px}
+
+.eyebrow{
+  font-family:var(--f-label); font-size:11px; font-weight:700;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--or);
+  margin:0 0 18px;
+}
+.lede{font-size:clamp(18px,2.1vw,21px); color:var(--creme-doux); max-width:62ch}
+.rule{height:1px; background:linear-gradient(90deg,transparent,var(--voile) 18%,var(--voile) 82%,transparent); border:0; margin:0}
+
+/* ---------- le ciel ---------- */
+#ciel{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none}
+.sur{position:relative; z-index:1}
+
+/* ---------- ouverture ---------- */
+.hero{padding-block:clamp(86px,16vh,170px) clamp(56px,8vw,96px)}
+.marque{
+  font-family:var(--f-label); font-size:11px; font-weight:700; letter-spacing:.42em;
+  text-transform:uppercase; color:var(--creme-doux); margin:0 0 30px;
+}
+.hero h1{
+  font-size:clamp(44px,9.2vw,96px); line-height:1.02; letter-spacing:-.012em;
+  margin:0 0 6px;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(96deg,var(--violet) 8%,var(--or) 92%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero .sous{
+  font-family:var(--f-texte); font-style:italic; font-size:clamp(19px,2.6vw,26px);
+  color:var(--creme-doux); margin:0 0 34px;
+}
+.hero p.lede{font-size:clamp(18px,2.2vw,22px); color:var(--creme)}
+.hero-actions{display:flex; flex-wrap:wrap; gap:14px; margin-top:38px}
+
+.btn{
+  font-family:var(--f-label); font-size:12px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; text-decoration:none;
+  padding:15px 26px; border:1px solid var(--or); color:var(--or);
+  background:transparent; transition:background .35s,color .35s;
+}
+.btn:hover{background:var(--or); color:var(--nuit)}
+.btn.plein{background:var(--or); color:var(--nuit)}
+.btn.plein:hover{background:transparent; color:var(--or)}
+
+/* ---------- la vision ---------- */
+.vision{display:grid; grid-template-columns:1fr; gap:clamp(28px,4vw,56px)}
+@media(min-width:860px){.vision{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:start}}
+.vision h2{font-size:clamp(28px,4.4vw,44px); line-height:1.16}
+.vision .corps p{margin:0 0 20px; max-width:60ch}
+.vision .corps p:last-child{margin-bottom:0}
+.vision .corps strong{font-weight:600; color:var(--or)}
+
+/* ---------- la collection ---------- */
+.grille{display:grid; gap:1px; background:var(--voile); border:1px solid var(--voile); margin-top:44px}
+@media(min-width:620px){.grille{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.carnet{
+  background:var(--nuit-2); padding:clamp(28px,3.4vw,38px) clamp(24px,3vw,34px); min-width:0;
+  display:flex; flex-direction:column; gap:14px; position:relative;
+  transition:background .4s;
+}
+.carnet:hover{background:#241C2E}
+.carnet .sigil{width:52px; height:52px; color:var(--creme-doux); transition:color .4s,transform .6s}
+.carnet:hover .sigil{color:var(--or); transform:rotate(-4deg) scale(1.06)}
+.carnet h3{font-size:25px; letter-spacing:.01em}
+.carnet .univers{
+  font-family:var(--f-label); font-size:10.5px; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--creme-doux);
+}
+.carnet .promesse{font-style:italic; color:var(--creme-doux); font-size:16px; margin:0}
+.carnet .etat{margin-top:auto; padding-top:16px}
+.carnet .etat a{
+  font-family:var(--f-label); font-size:11px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--or); text-decoration:none;
+  border-bottom:1px solid currentColor; padding-bottom:3px;
+}
+.carnet .etat span{
+  font-family:var(--f-label); font-size:11px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:#6F6377;
+}
+.carnet::before{
+  content:""; position:absolute; left:0; top:0; width:3px; height:0;
+  background:var(--bande,var(--or)); transition:height .5s ease;
+}
+.carnet:hover::before{height:100%}
+
+/* ---------- la méthode ---------- */
+.etapes{display:grid; gap:0; margin-top:40px}
+.etape{
+  display:grid; grid-template-columns:auto minmax(0,1fr); gap:clamp(18px,3vw,34px);
+  padding-block:26px; border-top:1px solid var(--voile); align-items:baseline;
+}
+.etape:last-child{border-bottom:1px solid var(--voile)}
+.etape .num{
+  font-family:var(--f-label); font-size:11px; font-weight:700; letter-spacing:.16em;
+  color:var(--or); padding-top:6px; font-variant-numeric:tabular-nums;
+}
+.etape h3{font-size:21px; margin-bottom:6px}
+.etape p{margin:0; color:var(--creme-doux); max-width:58ch; font-size:16.5px}
+
+/* ---------- Amy ---------- */
+.amy{background:var(--nuit-2); border-top:1px solid var(--voile); border-bottom:1px solid var(--voile)}
+.amy-in{display:grid; gap:clamp(26px,4vw,52px)}
+@media(min-width:860px){.amy-in{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); align-items:center}}
+.medaillon{
+  width:min(260px,70vw); aspect-ratio:1; border-radius:50%;
+  border:1px solid var(--voile); display:grid; place-items:center;
+  background:radial-gradient(circle at 50% 42%,#2B2235,#191322 72%);
+  max-width:100%;
+}
+.medaillon svg{width:58%; height:58%; color:var(--or); opacity:.92}
+.amy blockquote{
+  margin:0 0 22px; font-size:clamp(20px,2.8vw,27px); font-style:italic;
+  line-height:1.42; color:var(--creme);
+}
+.amy blockquote cite{
+  display:block; margin-top:14px; font-style:normal;
+  font-family:var(--f-label); font-size:11px; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--or);
+}
+.amy p{color:var(--creme-doux); margin:0 0 18px; max-width:58ch}
+
+/* ---------- La Muse ---------- */
+.muse-liste{display:grid; gap:1px; background:var(--voile); border:1px solid var(--voile); margin-top:40px}
+@media(min-width:720px){.muse-liste{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.muse{background:var(--nuit-2); padding:26px; min-width:0}
+.muse .n{
+  font-family:var(--f-label); font-size:10.5px; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--or); display:block; margin-bottom:10px;
+}
+.muse h3{font-size:19px; margin-bottom:8px}
+.muse p{margin:0; font-style:italic; color:var(--creme-doux); font-size:16px}
+
+/* ---------- Kaika, l’application ---------- */
+.appli{display:grid; gap:clamp(24px,4vw,48px)}
+@media(min-width:860px){.appli{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); align-items:center}}
+.appli ul{list-style:none; margin:0; padding:0; display:grid; gap:14px}
+.appli li{
+  padding-left:26px; position:relative; color:var(--creme-doux); max-width:52ch;
+}
+.appli li::before{
+  content:""; position:absolute; left:0; top:.72em; width:9px; height:9px;
+  border:1px solid var(--or); transform:rotate(45deg);
+}
+.encart{
+  border:1px solid var(--voile); padding:clamp(24px,4vw,38px); background:var(--nuit-2);
+}
+.encart .eyebrow{color:var(--terre)}
+.encart p{margin:0; color:var(--creme-doux)}
+
+/* ---------- pied ---------- */
+footer{border-top:1px solid var(--voile); padding-block:54px 64px}
+.pied{display:flex; flex-wrap:wrap; gap:26px; justify-content:space-between; align-items:flex-end}
+.pied .sig{font-family:var(--f-titre); font-size:22px; color:var(--creme)}
+.pied .mentions{font-size:14px; color:#7C6F84; max-width:46ch}
+.pied a.insta{
+  font-family:var(--f-label); font-size:11px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--or); text-decoration:none;
+  border-bottom:1px solid currentColor; padding-bottom:3px;
+}
+
+
+/* ---------- La Muse : les vidéos ---------- */
+.films{display:grid; gap:clamp(18px,2.4vw,26px); margin-top:44px}
+@media(min-width:600px){.films{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:980px){.films{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.film{min-width:0; display:flex; flex-direction:column; gap:12px}
+.film .cadre{
+  position:relative; border:1px solid var(--voile); background:var(--nuit-2);
+  aspect-ratio:9/16; overflow:hidden; max-width:100%;
+}
+.film video{width:100%; height:100%; object-fit:cover; display:block; background:#000}
+.film .n{
+  font-family:var(--f-label); font-size:10.5px; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--violet);
+}
+.film h3{font-size:18px; margin:2px 0 4px}
+.film p{margin:0; font-style:italic; color:var(--creme-doux); font-size:15.5px}
+
+/* ---------- le fil ---------- */
+.fil{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(10px,1.6vw,18px); margin-top:40px}
+@media(min-width:860px){.fil{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.fil figure{margin:0; min-width:0; border:1px solid var(--voile); overflow:hidden; background:var(--nuit-2); display:flex; flex-direction:column}
+.fil img{width:100%; height:auto; display:block; transition:transform .7s ease, filter .7s ease; filter:saturate(.94)}
+.fil figure:hover img{transform:scale(1.035); filter:saturate(1.06)}
+.fil-pied{margin-top:30px; display:flex; flex-wrap:wrap; gap:16px; align-items:center}
+
+
+/* ---------- les images ---------- */
+.hero{position:relative; isolation:isolate; overflow:hidden}
+.hero::after{
+  content:""; position:absolute; inset:-14% -22% auto -22%; height:150%;
+  background:url("ciel.jpg") center 36%/cover no-repeat;
+  opacity:.42; mix-blend-mode:screen; z-index:-1;
+  -webkit-mask-image:radial-gradient(128% 96% at 66% 12%, #000 0%, rgba(0,0,0,.55) 42%, transparent 82%);
+          mask-image:radial-gradient(128% 96% at 66% 12%, #000 0%, rgba(0,0,0,.55) 42%, transparent 82%);
+  pointer-events:none;
+}
+.bandeau{
+  position:relative; overflow:hidden; border-block:1px solid var(--voile);
+  min-height:min(58vh,440px); display:grid; align-items:center;
+}
+.bandeau img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  object-position:50% 34%; filter:saturate(.82) contrast(1.02);
+}
+.bandeau::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(92deg, rgba(19,14,29,.94) 6%, rgba(19,14,29,.68) 44%, rgba(19,14,29,.30) 100%);
+}
+.bandeau .mot{position:relative; z-index:1; padding-block:clamp(44px,8vw,86px)}
+.bandeau.ciel{min-height:min(52vh,400px)}
+.bandeau.ciel img{object-position:50% 52%; filter:saturate(.96) brightness(.98)}
+.bandeau.ciel::after{
+  background:linear-gradient(180deg, rgba(19,14,29,.58) 0%, rgba(19,14,29,.22) 34%, rgba(19,14,29,.78) 100%);
+}
+.bandeau.ciel .mot p{color:#2A2036; text-shadow:0 1px 18px rgba(246,234,218,.55); max-width:26ch}
+.bandeau.ciel .mot .src{color:#3A2A52; text-shadow:none; max-width:none}
+.bandeau .mot p{
+  font-family:var(--f-titre); font-size:clamp(23px,3.4vw,38px); line-height:1.3;
+  margin:0; max-width:22ch; color:var(--creme);
+}
+.bandeau .mot .src{
+  margin-top:20px; font-family:var(--f-label); font-size:10.5px; font-weight:700;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--or);
+}
+
+
+/* ---------- le logo, sur son ardoise ---------- */
+.enseigne{background:var(--ardoise); border-bottom:1px solid rgba(0,0,0,.28)}
+.enseigne .in{display:flex; justify-content:center; padding-block:clamp(26px,4vw,40px)}
+.enseigne img{width:min(360px,62vw); height:auto; display:block}
+footer .marque-pied{margin-bottom:26px}
+footer .marque-pied img{width:188px; height:auto; display:block; opacity:.9}
+
+/* ---------- les couvertures ---------- */
+.fil figure figcaption{
+  font-family:var(--f-label); font-size:10.5px; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--creme-doux); padding:14px 14px 16px; margin-top:auto;
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important; transition:none!important}
+}
+</style>
+
+<canvas id="ciel" aria-hidden="true"></canvas>
+
+<div class="sur">
+
+<div class="enseigne">
+  <div class="gutter in"><img src="logo.png" alt="Âme Management" width="360" height="218"></div>
+</div>
+
+<header class="hero gutter">
+  <h1>Ce qui dort<br>en toi n’est<br><em>pas perdu</em></h1>
+  <p class="sous">Les carnets d’Amy Awen</p>
+  <p class="lede">Dix carnets guidés de quatre-vingt-dix jours. Chacun emprunte sa sagesse à un endroit du monde, et propose le même chemin&nbsp;: une question par jour, cinq minutes, à ton rythme.</p>
+  <div class="hero-actions">
+    <a class="btn plein" href="#collection">Voir la collection</a>
+    <a class="btn" href="#methode">Comment ça marche</a>
+  </div>
+</header>
+
+<hr class="rule">
+
+<section class="gutter">
+  <div class="vision">
+    <div>
+      <p class="eyebrow">Le propos</p>
+      <h2>On finit par traverser ses journées sans les voir.</h2>
+    </div>
+    <div class="corps">
+      <p>Tu réponds, tu ranges, tu anticipes, tu souris au bon moment. C’est efficace. Et c’est exactement ce qui t’a éloignée de ta propre vie.</p>
+      <p>Il faut un jour lâcher ses automatismes pour se retrouver, et retrouver le monde autour&nbsp;: regarder à nouveau, s’étonner, prendre son temps. <strong>Comme la petite fille qu’on était.</strong></p>
+      <p>On a toutes besoin, un jour, d’une muse ou d’un guide. Ces carnets ne disent pas quoi faire. Ils rappellent d’écouter.</p>
+      <p>Autrefois, on écoutait les femmes qui voyaient plus loin — la völva du Nord, celle qui lisait les signes, les saisons et les silences. <strong>Ce regard-là ne s’est pas perdu.</strong></p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<div class="bandeau ciel">
+  <img src="ciel-large.jpg" alt="Un ciel de fin de journée, rose et bleu" loading="lazy">
+  <div class="gutter mot">
+    <p>Regarder à nouveau. S’étonner. Prendre son temps.</p>
+    <p class="src">Photographie d’Amy</p>
+  </div>
+</div>
+
+<section class="gutter" id="collection">
+  <p class="eyebrow">La collection</p>
+  <h2 style="font-size:clamp(28px,4.4vw,44px);line-height:1.16;margin-bottom:18px">Dix univers, un seul chemin</h2>
+  <p class="lede">Chamanisme, völva, taoïsme, runes et mythes&nbsp;: chaque carnet puise dans une sagesse différente, et garde la même structure en treize étapes.</p>
+  <div class="grille" id="grille"></div>
+</section>
+
+<hr class="rule">
+
+<section class="gutter" id="methode">
+  <p class="eyebrow">La méthode</p>
+  <h2 style="font-size:clamp(28px,4.4vw,44px);line-height:1.16;margin-bottom:18px">Treize étapes, quatre-vingt-dix jours</h2>
+  <p class="lede">Ici, aucune série ne se casse. Un jour plein, un jour doux, un jour blanc&nbsp;: aucun ne retire rien aux autres.</p>
+  <div class="etapes" id="etapes"></div>
+</section>
+
+<div class="bandeau">
+  <img src="anthos.jpg" alt="Une femme assise entre deux colonnes, de dos, face à la lumière" loading="lazy">
+  <div class="gutter mot">
+    <p>« Autrefois, on écoutait les femmes qui voyaient plus loin. »</p>
+    <p class="src">Anthos · Grèce antique · à paraître</p>
+  </div>
+</div>
+
+<section class="amy" id="amy">
+  <div class="gutter amy-in">
+    <div class="medaillon" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1">
+        <circle cx="50" cy="50" r="34" opacity=".45"></circle>
+        <path d="M50 78V38" stroke-linecap="round"></path>
+        <path d="M50 46c-8-2-13-8-13-16 8 0 13 6 13 16Z" fill="currentColor" fill-opacity=".14"></path>
+        <path d="M50 46c8-2 13-8 13-16-8 0-13 6-13 16Z" fill="currentColor" fill-opacity=".14"></path>
+        <path d="M50 60c-7-2-11-7-11-14 7 0 11 6 11 14Z" fill="currentColor" fill-opacity=".1"></path>
+        <path d="M50 60c7-2 11-7 11-14-7 0-11 6-11 14Z" fill="currentColor" fill-opacity=".1"></path>
+        <circle cx="50" cy="30" r="3.4" fill="currentColor" fill-opacity=".5"></circle>
+      </svg>
+    </div>
+    <div>
+      <p class="eyebrow">Amy Awen</p>
+      <blockquote>
+        « Tu n’es pas fatiguée parce que tu fais trop. Tu es fatiguée parce que tu n’y es plus. »
+        <cite>Première page de chaque carnet</cite>
+      </blockquote>
+      <p>Amy Awen est un nom de plume. Derrière, une femme qui a longtemps pris soin de tout sauf d’elle-même, et qui a fini par poser sur le papier ce qu’elle aurait voulu qu’on lui dise.</p>
+      <p>Elle ne prétend pas avoir trouvé seule. <strong>Une muse l’a guidée</strong> — une voix qui ne jugeait rien, et qui lui rappelait d’écouter quand elle n’entendait plus. Ces carnets sont la façon de passer ce rappel plus loin.</p>
+      <p>Elle écrit comme on parle à une amie&nbsp;: sans jargon, sans promesse de guérison, sans petits défis ni cases à cocher. Treize enseignements par carnet, chacun suivi d’une phrase qu’elle signe de son prénom.</p>
+    </div>
+  </div>
+</section>
+
+<section class="gutter" id="muse">
+  <p class="eyebrow">La Muse</p>
+  <h2 style="font-size:clamp(28px,4.4vw,44px);line-height:1.16;margin-bottom:18px">Une voix, vingt-cinq secondes</h2>
+  <p class="lede">La même narratrice revient, épisode après épisode. Une affirmation qui arrête le pouce, trois fragments, une phrase qui rassure, et une question laissée ouverte.</p>
+  <div class="films" id="films"></div>
+</section>
+
+<hr class="rule">
+
+<section class="gutter" id="fil">
+  <p class="eyebrow">Le fil</p>
+  <h2 style="font-size:clamp(28px,4.4vw,44px);line-height:1.16;margin-bottom:18px">Les trois premiers</h2>
+  <p class="lede">Ce qu’on publie, ce sont les carnets eux-mêmes. Pas de fond pastel avec une phrase dessus.</p>
+  <div class="fil" id="fil-grille"></div>
+  <div class="fil-pied">
+    <a class="btn" href="https://www.instagram.com/amyawen.carnets/">Suivre sur Instagram</a>
+    <span style="color:var(--creme-doux);font-size:15px">@amyawen.carnets</span>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="gutter" id="appli">
+  <div class="appli">
+    <div>
+      <p class="eyebrow">En préparation</p>
+      <h2 style="font-size:clamp(28px,4.4vw,44px);line-height:1.16;margin-bottom:18px">Kaika, l’application</h2>
+      <p class="lede" style="margin-bottom:26px">Le carnet continue ailleurs&nbsp;: quelque chose qui grandit un peu chaque jour, et une muse qui accompagne.</p>
+      <ul>
+        <li>Les mêmes défis, en version pleine ou en version douce</li>
+        <li>Un monde qui pousse au rythme des jours traversés</li>
+        <li>Des fleurs rares, dont le sens rejoint ta quête</li>
+        <li>Une muse qui parle, et ne juge rien</li>
+      </ul>
+    </div>
+    <div class="encart">
+      <p class="eyebrow">Pas encore de date</p>
+      <p>L’application se construit lentement, comme le reste. Elle sortira quand elle sera juste, pas quand le calendrier le demandera.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="gutter">
+  <div class="pied">
+    <div>
+      <p class="marque-pied"><img src="logo-clair.png" alt="Âme Management" width="188" height="114" loading="lazy"></p>
+      <p class="mentions">Carnets guidés de quatre-vingt-dix jours. Cinq minutes par jour, à ton rythme — ici, aucune série ne se casse.</p>
+    </div>
+    <div>
+      <a class="insta" href="https://www.instagram.com/amyawen.carnets/">Instagram · @amyawen.carnets</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<script>
+/* =======================================================================
+   CONTENU — tout ce qui se modifie est ici, et nulle part ailleurs.
+   Pour mettre un carnet en vente : remplace  lien:null  par l’adresse
+   Amazon entre guillemets. Exemple :  lien:"https://www.amazon.fr/dp/XXXX"
+   ======================================================================= */
+
+const CARNETS = [
+  {nom:"Kaika",       univers:"Japon",                      promesse:"90 jours pour éclore",             teinte:"#C2665A", lien:null, sigil:"sakura"},
+  {nom:"Gróa",        univers:"Nord · runes · völva",       promesse:"90 jours pour grandir",            teinte:"#6E8CA8", lien:null, sigil:"rune"},
+  {nom:"Douze Lunes", univers:"Lunes · peuples du Nord",    promesse:"90 jours au rythme des lunes",     teinte:"#C9A24A", lien:null, sigil:"lunes"},
+  {nom:"Tupu",        univers:"Polynésie · navigateurs",    promesse:"90 jours pour grandir",            teinte:"#4FA3A0", lien:null, sigil:"etoile"},
+  {nom:"Ankura",      univers:"Inde",                       promesse:"90 jours pour éclore",             teinte:"#C98A3A", lien:null, sigil:"lotus"},
+  {nom:"Chipua",      univers:"Afrique",                    promesse:"90 jours pour bourgeonner",        teinte:"#B5723F", lien:null, sigil:"baobab"},
+  {nom:"Banksia",     univers:"Australie · renaître du feu",promesse:"90 jours pour renaître",           teinte:"#C2553A", lien:null, sigil:"flamme"},
+  {nom:"Fás",         univers:"Celte · Irlande",            promesse:"90 jours pour pousser",            teinte:"#6E9A62", lien:null, sigil:"triskele"},
+  {nom:"Anthos",      univers:"Grèce antique · mythes",     promesse:"90 jours pour fleurir",            teinte:"#A8B4C2", lien:null, sigil:"olivier"},
+  {nom:"Shekoufa",    univers:"Perse · jardins",            promesse:"90 jours pour éclore",             teinte:"#8A6FA8", lien:null, sigil:"jardin"},
+];
+
+const ETAPES = [
+  ["Trois branches","Tu choisis trois défis parmi trente, chacun en version pleine ou en version douce, selon l’énergie du jour. Les jours de repos font partie du chemin."],
+  ["Une question par jour","Quatre-vingt-dix questions, jamais la même deux fois, chacune un peu plus loin que la précédente."],
+  ["Une graine du jour","Une phrase à emporter, tirée des sagesses de l’univers du carnet — proverbe, strophe ancienne, dicton."],
+  ["Un rituel par semaine","Treize gestes simples et concrets, à faire une fois dans la semaine. Neuf souffles, trois pierres, une bougie."],
+  ["Une expédition par semaine","Sortir, ou regarder autrement un lieu qu’on croit connaître, et laisser les cinq sens prendre les notes."],
+  ["Un bilan, une fleur","À la fin de chaque semaine, six tiges à remplir révèlent une fleur à colorier. Douze semaines, douze fleurs, une page entière qui se remplit."],
+  ["Une page à offrir","Une page se découpe et se plie en sachet de graines, pour y écrire ce qu’on a envie de semer chez quelqu’un."],
+];
+
+/* Les vidéos : fichier = null tant que l’épisode n’est pas monté. */
+const MUSE = [
+  {titre:"Éveiller sa spiritualité", phrase:"Il existe une connaissance qu’aucun livre ne peut te donner.", video:null,         image:null},
+  {titre:"Revenir à soi",            phrase:"Le retour à soi ne demande pas un grand voyage.",                video:"axe-2.mp4", image:"axe-2.jpg"},
+  {titre:"Activer son corps",        phrase:"Le corps ne demande pas de performance. Il demande du mouvement.",video:"axe-3.mp4", image:"axe-3.jpg"},
+  {titre:"Se connecter au vivant",   phrase:"Le vivant ne demande rien. Il attend juste que tu le remarques.", video:"axe-4.mp4", image:"axe-4.jpg"},
+  {titre:"Suivre la voie du cœur",   phrase:"Elle se construit dans les petits gestes qu’on choisit de faire.",video:"axe-5.mp4", image:"axe-5.jpg"},
+  {titre:"S’ouvrir à la méditation", phrase:"Laisser passer les pensées, sans les suivre.",                    video:"axe-6.mp4", image:"axe-6.jpg"},
+  {titre:"Explorer ses talents",     phrase:"Le geste créatif est une fin en soi.",                            video:"axe-7.mp4", image:"axe-7.jpg"},
+  {titre:"Se challenger",            phrase:"C’est là que quelque chose bouge.",                               video:"axe-8.mp4", image:"axe-8.jpg"},
+];
+
+/* Le fil : les trois couvertures et la première page. */
+const FIL = [
+  ["couv-kaika.jpg","Kaika",      "Couverture"],
+  ["couv-groa.jpg","Gróa",        "Couverture"],
+  ["couv-lunes.jpg","Douze Lunes","Couverture"],
+  ["post-2.jpg","La lettre d’Amy","Première page"],
+];
+
+/* ============================ fin du contenu ============================ */
+
+const SIGILS = {
+  sakura:'<path d="M23 8c3.6 0 6 2.8 6 6.4 0 2.6-1.6 4.6-3.6 5.6 2.2.4 4 2.2 4.6 4.6.8 3.4-1.2 6.8-4.6 7.6-2.4.6-4.8-.4-6.2-2.2-1 2.2-3.2 3.6-5.8 3.6-3.6 0-6.4-2.8-6.4-6.4 0-2.4 1.4-4.6 3.4-5.6-2.2-.6-3.8-2.6-4-5-.2-3.6 2.4-6.6 6-6.8 2.4-.2 4.6 1 5.8 3 1-2.2 3-3.4 4.8-3.4Z" stroke-width="1.1"/><circle cx="23" cy="23" r="3" stroke-width="1.1"/>',
+  rune:'<path d="M14 6v34M14 12c7 0 11 3.2 11 7s-4 7-11 7M14 26c7.6 0 12 3.4 12 7.4S21.6 40 14 40" stroke-width="1.3" stroke-linecap="round"/>',
+  lunes:'<circle cx="11" cy="23" r="5" stroke-width="1.1"/><path d="M23 18a5 5 0 1 0 0 10 5 5 0 0 1 0-10Z" stroke-width="1.1"/><circle cx="35" cy="23" r="5" stroke-width="1.1" fill="currentColor" fill-opacity=".25"/><path d="M4 34c8-4 28-4 38 0" stroke-width=".9" opacity=".5"/>',
+  etoile:'<path d="M23 5l3.2 12.6L38 21l-11.8 3.4L23 41l-3.2-16.6L8 21l11.8-3.4Z" stroke-width="1.1"/><path d="M6 36c8 3 26 3 34 0" stroke-width=".9" opacity=".5"/>',
+  lotus:'<path d="M23 38c-7 0-13-4.4-13-9 3.4 0 6.4 1 8.6 2.6M23 38c7 0 13-4.4 13-9-3.4 0-6.4 1-8.6 2.6" stroke-width="1.1"/><path d="M23 38c-4-3-6-7.6-6-12s2.4-8.6 6-11c3.6 2.4 6 6.6 6 11s-2 9-6 12Z" stroke-width="1.1"/>',
+  baobab:'<path d="M23 41V22" stroke-width="1.3" stroke-linecap="round"/><path d="M23 22c-6-1-10-5-11-10M23 22c6-1 10-5 11-10M23 24c-4 2-9 2-12 0M23 24c4 2 9 2 12 0" stroke-width="1" stroke-linecap="round"/><path d="M14 41c4-3 14-3 18 0" stroke-width=".9" opacity=".5"/>',
+  flamme:'<path d="M23 41c-6 0-10-4.2-10-9.4 0-7 7-9.6 7-16.6 4 2.4 5.4 6 5.4 9 2-1.4 2.6-4 2.6-6.4 3.4 3.6 5 8 5 14 0 5.2-4 9.4-10 9.4Z" stroke-width="1.1"/><path d="M23 34c-2 0-3.4-1.4-3.4-3.2 0-2.4 3.4-3.6 3.4-6.8 2.6 2.4 3.4 4.4 3.4 6.8 0 1.8-1.4 3.2-3.4 3.2Z" stroke-width=".9" opacity=".6"/>',
+  triskele:'<path d="M23 23c0-7 5-11 10-9s5 9-1 11M23 23c6 3.6 6 10 1.6 12.6S14 36 14 29M23 23c-6-3.6-12-1-13.6 4" stroke-width="1.2" stroke-linecap="round"/>',
+  olivier:'<path d="M12 40c6-14 14-22 24-26" stroke-width="1.2" stroke-linecap="round"/><path d="M26 18c2-3 6-4 9-3-1 3-4 5-7 5ZM20 25c2-3 6-4 9-3-1 3-4 5-7 5ZM14 32c2-3 6-4 9-3-1 3-4 5-7 5Z" stroke-width="1"/>',
+  jardin:'<path d="M23 41V26M9 41V14a14 14 0 0 1 28 0v27" stroke-width="1.1" stroke-linecap="round"/><path d="M23 26c-4 0-7-3-7-7 4 0 7 3 7 7ZM23 26c4 0 7-3 7-7-4 0-7 3-7 7Z" stroke-width="1"/><path d="M16 41h14" stroke-width=".9" opacity=".5"/>',
+};
+
+function svg(nom){
+  return '<svg class="sigil" viewBox="0 0 46 46" fill="none" stroke="currentColor" aria-hidden="true">' +
+         (SIGILS[nom] || '') + '</svg>';
+}
+
+document.getElementById('grille').innerHTML = CARNETS.map(c => `
+  <article class="carnet" style="--bande:${c.teinte}">
+    ${svg(c.sigil)}
+    <div>
+      <h3>${c.nom}</h3>
+      <p class="univers">${c.univers}</p>
+    </div>
+    <p class="promesse">${c.promesse}</p>
+    <p class="etat">${
+      c.lien ? `<a href="${c.lien}">Sur Amazon</a>`
+             : `<span>Bientôt</span>`
+    }</p>
+  </article>`).join('');
+
+document.getElementById('etapes').innerHTML = ETAPES.map(([t,d],i) => `
+  <div class="etape">
+    <span class="num">${String(i+1).padStart(2,'0')}</span>
+    <div><h3>${t}</h3><p>${d}</p></div>
+  </div>`).join('');
+
+document.getElementById('films').innerHTML = MUSE.map((m,i) => `
+  <article class="film">
+    <div class="cadre">${
+      m.video
+        ? `<video src="${m.video}" poster="${m.image}" controls preload="none" playsinline
+                 aria-label="La Muse, épisode ${i+1} : ${m.titre}"></video>`
+        : `<div style="display:grid;place-items:center;height:100%;color:#6F6377;
+                 font-family:var(--f-label);font-size:11px;letter-spacing:.18em;
+                 text-transform:uppercase">Déjà en ligne sur Instagram</div>`
+    }</div>
+    <div>
+      <span class="n">Épisode ${String(i+1).padStart(2,'0')}</span>
+      <h3>${m.titre}</h3>
+      <p>« ${m.phrase} »</p>
+    </div>
+  </article>`).join('');
+
+document.getElementById('fil-grille').innerHTML = FIL.map(([f,nom,leg]) => `
+  <figure>
+    <img src="${f}" alt="${nom} — ${leg}" loading="lazy">
+    <figcaption>${nom} · ${leg}</figcaption>
+  </figure>`).join('');
+
+/* ---------- le ciel qui dérive ---------- */
+(function(){
+  const cv = document.getElementById('ciel');
+  if (!cv) return;
+  const doux = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ctx = cv.getContext('2d');
+  let w, h, pts = [], dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  function poser(){
+    w = cv.clientWidth; h = cv.clientHeight;
+    cv.width = w * dpr; cv.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(Math.min(110, (w * h) / 16000));
+    pts = Array.from({length: n}, () => ({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - .5) * .07, vy: (Math.random() - .5) * .07,
+      r: Math.random() * 1.25 + .35, p: Math.random() * Math.PI * 2
+    }));
+  }
+
+  function dessiner(t){
+    ctx.clearRect(0, 0, w, h);
+    for (let i = 0; i < pts.length; i++){
+      const a = pts[i];
+      for (let j = i + 1; j < pts.length; j++){
+        const b = pts[j], dx = a.x - b.x, dy = a.y - b.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < 15000){
+              ctx.strokeStyle = 'rgba(138,99,196,' + (.13 * (1 - d2 / 15000)) + ')';
+          ctx.lineWidth = .6;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+    }
+    for (const a of pts){
+      const sc = .55 + .45 * Math.sin(t / 1800 + a.p);
+      ctx.fillStyle = 'rgba(246,234,218,' + (.30 * sc) + ')';
+      ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.2832); ctx.fill();
+      if (!doux){ a.x += a.vx; a.y += a.vy;
+        if (a.x < -10) a.x = w + 10; if (a.x > w + 10) a.x = -10;
+        if (a.y < -10) a.y = h + 10; if (a.y > h + 10) a.y = -10; }
+    }
+  }
+
+  let brut = 0;
+  function boucle(t){ dessiner(t); if (!doux) requestAnimationFrame(boucle); }
+  poser();
+  if (doux) dessiner(0); else requestAnimationFrame(boucle);
+  window.addEventListener('resize', () => { clearTimeout(brut); brut = setTimeout(() => { poser(); if (doux) dessiner(0); }, 180); });
+})();
+</script>
